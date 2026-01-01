@@ -1,0 +1,702 @@
+/* ============================================
+   Clients Page - Brand Guide CSS Styling
+   ============================================ */
+
+/* ============================================
+   Section Header Component
+   ============================================ */
+
+.section-header {
+  margin-bottom: 3rem;
+}
+
+.section-header.text-center {
+  text-align: center;
+}
+
+.section-header.text-left {
+  text-align: left;
+}
+
+.section-header-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.125em;
+  color: var(--color-primary);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.section-header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: 500;
+  color: var(--color-dark);
+  margin: 0;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.section-header-description {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--color-text-muted);
+  max-width: 800px;
+  margin: 0;
+}
+
+.section-header.text-center .section-header-description {
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .section-header-title {
+    font-size: 1.75rem;
+  }
+  
+  .section-header-description {
+    font-size: 1rem;
+  }
+  
+  .section-header {
+    margin-bottom: 2rem;
+  }
+}
+
+/* ============================================
+   Grid Utilities
+   ============================================ */
+
+/* 3-column grid for featured clients */
+.clients-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* 4-column grid for regular clients */
+.clients-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+/* Responsive breakpoints */
+@media (max-width: 1200px) {
+  .clients-grid-4 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .clients-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .clients-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .clients-grid-3,
+  .clients-grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   Section Background Utilities
+   ============================================ */
+
+.section-bg-cream {
+  background-color: var(--color-cream);
+}
+
+.section-bg-white {
+  background-color: #FFFFFF;
+}
+
+.section-bg-dark {
+  background-color: var(--color-dark);
+  color: white;
+}
+
+.section-bg-dark h1,
+.section-bg-dark h2,
+.section-bg-dark h3 {
+  color: white;
+}
+
+.section-bg-dark .section-header-label {
+  color: var(--color-primary);
+}
+
+/* ============================================
+   Clients Page Sections
+   ============================================ */
+
+/* Search Section */
+.clients-search-section {
+  background-color: var(--color-cream);
+  padding: 2rem 0;
+}
+
+.clients-search-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+@media (max-width: 768px) {
+  .clients-search-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .clients-search-controls > * {
+    width: 100%;
+  }
+}
+
+/* Featured Section */
+.clients-featured-section {
+  background-color: var(--color-cream);
+  padding: 5rem 0;
+}
+
+/* Industry Sections */
+.clients-industry-section {
+  padding: 5rem 0;
+}
+
+.clients-industry-section.bg-white {
+  background-color: #FFFFFF;
+}
+
+.clients-industry-section.bg-cream {
+  background-color: var(--color-cream);
+}
+
+@media (max-width: 768px) {
+  .clients-featured-section,
+  .clients-industry-section {
+    padding: 3rem 0;
+  }
+}
+
+/* ============================================
+   Testimonial Section
+   ============================================ */
+
+.clients-testimonial-section {
+  background-color: var(--color-cream);
+  padding: 5rem 0;
+}
+
+.testimonial-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.testimonial-quote-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 5rem;
+  color: var(--color-accent);
+  line-height: 1;
+  display: block;
+  margin-bottom: -1rem;
+}
+
+.testimonial-quote-text {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 1.75rem;
+  line-height: 1.6;
+  color: var(--color-text);
+  margin-bottom: 2rem;
+}
+
+.testimonial-attribution {
+  margin-top: 2rem;
+}
+
+.testimonial-author {
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 0.25rem;
+  font-size: 1rem;
+}
+
+.testimonial-company {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .testimonial-quote-mark {
+    font-size: 3rem;
+  }
+  
+  .testimonial-quote-text {
+    font-size: 1.25rem;
+  }
+  
+  .clients-testimonial-section {
+    padding: 3rem 0;
+  }
+}
+
+/* ============================================
+   CTA Footer Section
+   ============================================ */
+
+.clients-cta-section {
+  background-color: var(--color-dark);
+  color: white;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.clients-cta-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.clients-cta-section p {
+  font-size: 1.125rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-gold {
+  background: var(--color-accent);
+  color: white;
+  border: none;
+  padding: 0.875rem 2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-gold:hover {
+  background: var(--color-accent-light);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold);
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .clients-cta-section h2 {
+    font-size: 1.75rem;
+  }
+  
+  .clients-cta-section p {
+    font-size: 1rem;
+  }
+  
+  .clients-cta-section {
+    padding: 3rem 0;
+  }
+}
+
+/* ============================================
+   Client Search Component - Brand Styling
+   ============================================ */
+
+.client-search-wrapper .client-search-input {
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  background: white;
+  width: 100%;
+}
+
+.client-search-wrapper .client-search-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(75, 148, 0, 0.1);
+}
+
+.client-search-wrapper .client-search-input::placeholder {
+  color: var(--color-text-muted);
+}
+
+/* ============================================
+   Client Filter Component - Brand Styling
+   ============================================ */
+
+.client-filter-wrapper .form-select {
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 0.625rem 2rem 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: white;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+
+.client-filter-wrapper .form-select:hover {
+  border-color: var(--color-primary);
+}
+
+.client-filter-wrapper .form-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(75, 148, 0, 0.1);
+}
+
+.client-filter-wrapper .client-filter-icon {
+  color: var(--color-text-muted);
+  transition: color 0.3s ease;
+}
+
+.client-filter-wrapper:hover .client-filter-icon {
+  color: var(--color-primary);
+}
+
+/* ============================================
+   Client Sort Component - Brand Styling
+   ============================================ */
+
+.client-sort-wrapper .form-select {
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 0.625rem 2rem 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background-color: white;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 140px;
+}
+
+.client-sort-wrapper .form-select:hover {
+  border-color: var(--color-primary);
+}
+
+.client-sort-wrapper .form-select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(75, 148, 0, 0.1);
+}
+
+.client-sort-wrapper .client-sort-icon {
+  color: var(--color-text-muted);
+  transition: color 0.3s ease;
+}
+
+.client-sort-wrapper:hover .client-sort-icon {
+  color: var(--color-primary);
+}
+
+/* ============================================
+   Animation Variants - Brand Timing
+   ============================================ */
+
+/* Standard timing values */
+:root {
+  --transition-fast: 0.15s;
+  --transition-base: 0.3s;
+  --transition-slow: 0.6s;
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .client-card:hover {
+    transform: none;
+  }
+  
+  .btn-call:hover,
+  .btn-reference:hover,
+  .btn-gold:hover {
+    transform: none;
+  }
+}
+
+/* ============================================
+   Logo Showcase Section - Updated Styling
+   ============================================ */
+
+.clients-logo-showcase-section {
+  background-color: var(--color-cream);
+  padding: 5rem 0;
+}
+
+.client-logo-item {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+}
+
+.client-logo-item:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+}
+
+.client-logo-item img {
+  max-height: 80px;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.client-logo-item:hover img {
+  filter: grayscale(0%);
+}
+
+@media (max-width: 768px) {
+  .clients-logo-showcase-section {
+    padding: 3rem 0;
+  }
+  
+  .client-logo-item {
+    min-height: 100px;
+    padding: 1rem;
+  }
+  
+  .client-logo-item img {
+    max-height: 60px;
+  }
+}
+
+/* ============================================
+   Mobile Optimization Enhancements (Group 6)
+   ============================================ */
+
+/* 6.1: Mobile Typography Audit - Ensure readability on small screens */
+@media (max-width: 576px) {
+  /* Hero section typography */
+  .hero-heading {
+    font-size: 1.75rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  .hero-tagline {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  /* Section header typography */
+  .section-header-title {
+    font-size: 1.5rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+  }
+  
+  .section-header-description {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+  
+  .section-header-label {
+    font-size: 0.6875rem;
+    letter-spacing: 0.1em;
+  }
+  
+  /* Testimonial typography */
+  .testimonial-quote-mark {
+    font-size: 2.5rem;
+  }
+  
+  .testimonial-quote-text {
+    font-size: 1.125rem;
+    line-height: 1.5;
+  }
+  
+  /* CTA section typography */
+  .clients-cta-section h2 {
+    font-size: 1.5rem;
+    line-height: 1.3;
+  }
+  
+  .clients-cta-section p {
+    font-size: 0.9375rem;
+    line-height: 1.5;
+    padding: 0 1rem;
+  }
+}
+
+/* 6.2: Touch Target Optimization - Ensure 44px minimum */
+@media (max-width: 768px) {
+  /* Search input touch target */
+  .client-search-wrapper .client-search-input {
+    min-height: 48px;
+    padding: 0.875rem 1rem 0.875rem 2.75rem;
+    font-size: 1rem;
+  }
+  
+  .client-search-clear {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.75rem;
+  }
+  
+  /* Filter and Sort select touch targets */
+  .client-filter-wrapper .form-select,
+  .client-sort-wrapper .form-select {
+    min-height: 48px;
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    font-size: 1rem;
+    min-width: auto;
+    width: 100%;
+  }
+  
+  /* Button touch targets - btn-gold */
+  .btn-gold {
+    min-height: 48px;
+    padding: 0.875rem 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  /* Search controls mobile layout */
+  .clients-search-controls {
+    gap: 0.75rem;
+  }
+  
+  .clients-search-controls > div {
+    min-width: 0;
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+}
+
+/* 6.3: Grid Layout Optimization - Smooth breakpoint transitions */
+@media (max-width: 1200px) and (min-width: 993px) {
+  /* 3 column grids at this breakpoint */
+  .clients-grid-3,
+  .clients-grid-4 {
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 992px) and (min-width: 769px) {
+  /* 2 column grids at tablet */
+  .clients-grid-3,
+  .clients-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  
+  /* Reduce section padding */
+  .clients-featured-section,
+  .clients-industry-section,
+  .clients-testimonial-section {
+    padding: 4rem 0;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Single column on small mobile */
+  .clients-grid-3,
+  .clients-grid-4 {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  /* Full width cards with optimized spacing */
+  .clients-featured-section,
+  .clients-industry-section,
+  .clients-testimonial-section {
+    padding: 2.5rem 0;
+  }
+  
+  /* Logo showcase adjustments */
+  .client-logo-item {
+    min-height: 80px;
+    padding: 0.75rem;
+  }
+}
+
+/* 6.4: Mobile Performance Optimization */
+@media (max-width: 768px) {
+  /* Reduce animation complexity on mobile */
+  .client-card:hover,
+  .client-logo-item:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Optimize shadow rendering on mobile */
+  .client-card,
+  .client-logo-item {
+    will-change: auto;
+  }
+  
+  .client-card:hover,
+  .client-logo-item:hover {
+    will-change: transform, box-shadow;
+  }
+  
+  /* Disable complex hover effects on touch devices */
+  @media (hover: none) {
+    .client-card:hover {
+      transform: none;
+      box-shadow: var(--shadow-card);
+    }
+    
+    .client-logo-item:hover img {
+      filter: grayscale(100%);
+    }
+  }
+}
+
+/* Prevent horizontal scroll on mobile */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden;
+  }
+  
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* Ensure no content overflows */
+  .clients-search-controls,
+  .testimonial-content,
+  .clients-cta-section > .container {
+    max-width: 100%;
+    overflow: hidden;
+  }
+}

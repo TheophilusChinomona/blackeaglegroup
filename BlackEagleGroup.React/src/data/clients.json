@@ -1,0 +1,260 @@
+{
+  "clients": [
+    {
+      "id": 1,
+      "name": "Eskom",
+      "industry": "energy",
+      "location": "",
+      "image": "/images/car-24.jpg",
+      "referenceLink": "#",
+      "phoneNumber": "0123585520",
+      "featured": true,
+      "order": 1,
+      "description": "South Africa's primary electricity utility"
+    },
+    {
+      "id": 2,
+      "name": "Respondnow",
+      "industry": "technology",
+      "location": "RSA",
+      "image": "/images/car-1.jpg",
+      "referenceLink": "mailto:murray@respondnow.biz",
+      "phoneNumber": "0124446000",
+      "featured": false,
+      "order": 1,
+      "description": "Technology solutions provider"
+    },
+    {
+      "id": 3,
+      "name": "VW",
+      "industry": "automotive",
+      "location": "Menlyn",
+      "image": "/images/car-23.jpg",
+      "referenceLink": "#",
+      "phoneNumber": "0123078037",
+      "featured": true,
+      "order": 1,
+      "description": "Volkswagen automotive manufacturer"
+    },
+    {
+      "id": 4,
+      "name": "ScoreCapture",
+      "industry": "technology",
+      "location": "",
+      "image": "/images/car-22.jpg",
+      "referenceLink": "#",
+      "phoneNumber": "0112438128",
+      "featured": false,
+      "order": 2,
+      "description": "Technology and software solutions"
+    },
+    {
+      "id": 5,
+      "name": "BestMed",
+      "industry": "healthcare",
+      "location": "Medical Aid",
+      "image": "/images/car-21.jpg",
+      "referenceLink": "#",
+      "phoneNumber": "0124443000",
+      "featured": false,
+      "order": 1,
+      "description": "Medical aid and healthcare services"
+    },
+    {
+      "id": 6,
+      "name": "H3C Technologies",
+      "industry": "technology",
+      "location": "",
+      "image": "/images/car-20.jpg",
+      "referenceLink": "#",
+      "phoneNumber": "0123511000",
+      "featured": false,
+      "order": 3,
+      "description": "Technology and IT solutions"
+    },
+    {
+      "id": 7,
+      "name": "Threeframs",
+      "industry": "business",
+      "location": "",
+      "image": "/images/car-19.jpg",
+      "referenceLink": "#",
+      "phoneNumber": "0124278000",
+      "featured": false,
+      "order": 1,
+      "description": "Business services provider"
+    },
+    {
+      "id": 8,
+      "name": "Amscor",
+      "industry": "defense",
+      "location": "",
+      "image": "/images/car-18.jpg",
+      "referenceLink": "#",
+      "phoneNumber": "012 312 7727",
+      "featured": false,
+      "order": 1,
+      "description": "Defense procurement and services"
+    },
+    {
+      "id": 9,
+      "name": "Momentum",
+      "industry": "financial",
+      "location": "Corporate",
+      "image": "/images/car-16.jpg",
+      "referenceLink": "#",
+      "phoneNumber": "012 686 0500",
+      "featured": true,
+      "order": 1,
+      "description": "Financial services and insurance"
+    },
+    {
+      "id": 10,
+      "name": "CSIR",
+      "industry": "research",
+      "location": "",
+      "image": "/images/car-17.jpg",
+      "referenceLink": "mailto:AWilliams@csir.co.za",
+      "phoneNumber": "0861400800",
+      "featured": true,
+      "order": 1,
+      "description": "Council for Scientific and Industrial Research"
+    },
+    {
+      "id": 11,
+      "name": "Sun",
+      "industry": "international",
+      "location": "international",
+      "image": "/images/car-15.jpg",
+      "referenceLink": "#",
+      "phoneNumber": "0861400800",
+      "featured": false,
+      "order": 1,
+      "description": "International client"
+    },
+    {
+      "id": 12,
+      "name": "Tshwane Open",
+      "industry": "government",
+      "location": "Municipality",
+      "image": "/images/car-0.jpg",
+      "referenceLink": "mailto:KamogeloMan@tshwane.gov.za",
+      "phoneNumber": "0123585520",
+      "featured": false,
+      "order": 1,
+      "description": "City of Tshwane Municipality"
+    },
+    {
+      "id": 13,
+      "name": "Tourism",
+      "industry": "government",
+      "location": "National Department",
+      "image": "/images/car-1.jpg",
+      "referenceLink": "mailto:callcentre@tourism.gov.za",
+      "phoneNumber": "0124446000",
+      "featured": false,
+      "order": 2,
+      "description": "National Department of Tourism"
+    },
+    {
+      "id": 14,
+      "name": "Correctional Services",
+      "industry": "government",
+      "location": "National Department",
+      "image": "/images/car-2.jpg",
+      "referenceLink": "mailto:communications@dcs.gov.za",
+      "phoneNumber": "0123078037",
+      "featured": false,
+      "order": 3,
+      "description": "Department of Correctional Services"
+    },
+    {
+      "id": 15,
+      "name": "Volvo Motors",
+      "industry": "automotive",
+      "location": "RSA Retail",
+      "image": "/images/car-3.jpg",
+      "referenceLink": "mailto:nmamojele@environment.gov.za",
+      "phoneNumber": "0112438128",
+      "featured": false,
+      "order": 2,
+      "description": "Volvo automotive retailer"
+    },
+    {
+      "id": 16,
+      "name": "Mineral Resources",
+      "industry": "government",
+      "location": "National Department",
+      "image": "/images/car-4.jpg",
+      "referenceLink": "mailto:enquiries@dmr.gov.za",
+      "phoneNumber": "0124443000",
+      "featured": false,
+      "order": 4,
+      "description": "Department of Mineral Resources"
+    },
+    {
+      "id": 17,
+      "name": "International Relations",
+      "industry": "government",
+      "location": "National Department",
+      "image": "/images/car-5.jpg",
+      "referenceLink": "mailto:info@dirco.gov.za",
+      "phoneNumber": "0123511000",
+      "featured": false,
+      "order": 5,
+      "description": "Department of International Relations and Cooperation"
+    }
+  ],
+  "clientIndustries": {
+    "government": {
+      "name": "Government & Public Sector",
+      "color": "#1E40AF",
+      "description": "National departments, municipalities, and public sector organizations"
+    },
+    "energy": {
+      "name": "Energy & Utilities",
+      "color": "#F59E0B",
+      "description": "Energy providers and utility companies"
+    },
+    "technology": {
+      "name": "Technology & IT",
+      "color": "#3B82F6",
+      "description": "Technology companies and IT services"
+    },
+    "automotive": {
+      "name": "Automotive",
+      "color": "#DC2626",
+      "description": "Automotive manufacturers and retailers"
+    },
+    "healthcare": {
+      "name": "Healthcare & Medical",
+      "color": "#10B981",
+      "description": "Healthcare providers and medical services"
+    },
+    "financial": {
+      "name": "Financial Services",
+      "color": "#8B5CF6",
+      "description": "Financial institutions and insurance companies"
+    },
+    "defense": {
+      "name": "Defense & Procurement",
+      "color": "#6366F1",
+      "description": "Defense contractors and procurement organizations"
+    },
+    "research": {
+      "name": "Research & Scientific",
+      "color": "#06B6D4",
+      "description": "Research institutions and scientific organizations"
+    },
+    "business": {
+      "name": "Business Services",
+      "color": "#64748B",
+      "description": "Business service providers"
+    },
+    "international": {
+      "name": "International",
+      "color": "#EC4899",
+      "description": "International clients and partners"
+    }
+  }
+}

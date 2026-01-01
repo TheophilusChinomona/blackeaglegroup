@@ -1,0 +1,407 @@
+{
+  "events": [
+    {
+      "id": "cot-1",
+      "type": "cot",
+      "title": "COT & BEG-Holdings Management Golf Day",
+      "subtitle": "Business Networking Golf Day",
+      "description": "In Partnership with the City of Tshwane. Building impactful partnerships that uplift communities and reshape Tshwane's future.",
+      "date": "2025-05-23",
+      "location": "Woodhill Country Club",
+      "venue": {
+        "name": "Woodhill Country Club",
+        "url": "https://woodhillestate.co.za/golf-course-info/",
+        "address": "1143 Woodhill Dr, Garsfontein, Pretoria, 0076, South Africa",
+        "mapUrl": "https://maps.app.goo.gl/seoVqYTKVqdurjVb7"
+      },
+      "contact": {
+        "email": "mandla@blackeaglegroup.co.za",
+        "phone": "082-624-9680"
+      },
+      "hero": {
+        "carousel": [
+          {
+            "image": "/COT/img/carousel-1.jpg",
+            "title": "BUSINESS NETWORKING GOLF DAY",
+            "subtitle": "In Partnership with the City of Tshwane"
+          },
+          {
+            "image": "/COT/img/carousel-2.jpg",
+            "title": "Reshape Tshwane's future",
+            "subtitle": "Building impactful partnerships that uplift communities"
+          }
+        ]
+      },
+      "content": {
+        "welcome": {
+          "heading": "BEG-Holdings Management and City of Tshwane Business Networking Golf Day",
+          "subheading": "To strengthen partnerships and explore collaborative economic development initiatives. Welcome !",
+          "text": "It is with great pleasure that we formally welcome you to attend and participate in the Business Networking Golf Day and Stakeholder Engagement Session, hosted by BEG-H in partnership with the City of Tshwane."
+        },
+        "about": {
+          "heading": "EVENT OVERVIEW",
+          "paragraphs": [
+            "As you may be aware, the City of Tshwane and the City of Johannesburg have both been awarded Co-Chair Status for the 2025 U20 (Urban 20), a globally recognized initiative linked to the G20 2025 Agenda. More on U20 can be found at: https://www.urban20.org.",
+            "In the build-up to the G20 Summit in November 2025, the City of Tshwane—under the leadership of Executive Mayor Dr. Nasiphi Moya—is rolling out a series of strategic engagements to mobilize local support for the U20 Africa Mayoral Assembly, scheduled for June 2025.",
+            "To support this vision, Black Eagle Group Holdings (BEG-Holdings), in partnership with the City of Tshwane, and led by MMC Cllr. Sarah Mabotsa, MMC for Economic Development & Spatial Planning, cordially invites company executives and decision-makers to participate in an exclusive Corporate Business Networking Golf Day at the prestigious Woodhill Country Club."
+          ],
+          "focusAreas": [
+            "Urban development",
+            "Infrastructure investment",
+            "Enterprise development",
+            "Corporate social investment (CSI)",
+            "Job creation",
+            "Youth job shadowing and mentorship"
+          ],
+          "supporters": [
+            "Urban development",
+            "The Office of MMC Cllr. Sarah Mabotsa",
+            "Executive Mayor Dr. Nasiphi Moya",
+            "The Mayoral Committee Members"
+          ]
+        },
+        "aideMemoire": {
+          "event": "Business Networking Golf, hosted by BEG-H in partnership with the City of Tshwane.",
+          "date": "Friday, 23 May 2025",
+          "venue": "Woodhill Country Club\nGarsfontein Road\nWoodhill Residential Estate\n0076",
+          "times": "Tee-Off: 07:45 AM | Registration: 06:45 AM",
+          "document": {
+            "title": "Program Business Networking Golf Day Event in Partnership with the City of Tshwane Municipality 23 May 2025",
+            "path": "/COT/img/ProgramBusiness.pdf",
+            "description": "Course opening, Setting up of waterholes, Registration of players, Welcoming and opening remarks, Group and team photos, Departure to respective tee boxes, Gun shot tee off, Lunch & Networking"
+          }
+        }
+      },
+      "sponsors": [
+        { "name": "H3C", "logo": "/COT/img/H3C.png", "url": "" },
+        { "name": "TakeNote", "logo": "/COT/img/TakeNote.png", "url": "" },
+        { "name": "SANParks", "logo": "/COT/img/SanParks.png", "url": "" },
+        { "name": "MAT Equity Group", "logo": "/COT/img/MAT.png", "url": "" },
+        { "name": "Altitude Wealth Group", "logo": "/COT/img/AltitudeWealth.png", "url": "" },
+        { "name": "ioco", "logo": "/COT/img/ioco.png", "url": "" }
+      ],
+      "contact": {
+        "form": {
+          "fields": [
+            { "name": "name", "type": "text", "label": "Full Name", "required": true },
+            { "name": "email", "type": "email", "label": "Email address", "required": true },
+            { "name": "subject", "type": "text", "label": "Subject", "required": true },
+            { "name": "message", "type": "textarea", "label": "Message", "required": true }
+          ],
+          "endpoint": "/api/contact"
+        },
+        "map": {
+          "embed": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14365.933225029978!2d28.31272!3d-25.820615000000004!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e955d92423abe43%3A0x92db695f27615316!2s1143%20Woodhill%20Dr%2C%20Garsfontein%2C%20Pretoria%2C%200076%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1747923686204!5m2!1sen!2sus",
+          "address": "1143 Woodhill Dr, Garsfontein, Pretoria, 0076, South Africa"
+        }
+      },
+      "gallery": {
+        "path": "/cassi/gallery",
+        "images": [
+          {
+            "original": "/cassi/img/projects/CoT0.jpg",
+            "thumbnail": "/cassi/img/projects/CoT0.jpg",
+            "description": "Tshwane Business Networking Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CoT1.jpg",
+            "thumbnail": "/cassi/img/projects/CoT1.jpg",
+            "description": "Tshwane Business Networking Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CoT2.jpg",
+            "thumbnail": "/cassi/img/projects/CoT2.jpg",
+            "description": "Tshwane Business Networking Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CoT4.jpg",
+            "thumbnail": "/cassi/img/projects/CoT4.jpg",
+            "description": "Tshwane Business Networking Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CoT5.jpg",
+            "thumbnail": "/cassi/img/projects/CoT5.jpg",
+            "description": "Tshwane Business Networking Golf Day"
+          }
+        ]
+      },
+      "images": [
+        {
+          "original": "/COT/img/carousel-1.jpg",
+          "thumbnail": "/COT/img/carousel-1.jpg",
+          "description": "COT Golf Day Event"
+        },
+        {
+          "original": "/COT/img/carousel-2.jpg",
+          "thumbnail": "/COT/img/carousel-2.jpg",
+          "description": "Business Networking"
+        }
+      ],
+      "videos": [],
+      "pages": [
+        {
+          "path": "/events/cot",
+          "title": "Welcome",
+          "component": "index"
+        },
+        {
+          "path": "/events/cot/about",
+          "title": "About",
+          "component": "about"
+        },
+        {
+          "path": "/events/cot/team",
+          "title": "AIDE MEMOIRE",
+          "component": "team"
+        },
+        {
+          "path": "/events/cot/contact",
+          "title": "Contact",
+          "component": "contact"
+        }
+      ],
+      "navigation": [
+        { "label": "Welcome", "path": "/events/cot" },
+        { "label": "About", "path": "/events/cot/about" },
+        { "label": "Venue", "path": "https://woodhillestate.co.za/golf-course-info/", "external": true },
+        { "label": "AIDE MEMOIRE", "path": "/events/cot/team" },
+        { "label": "Gallery", "path": "/cassi/gallery" },
+        { "label": "Contact", "path": "/events/cot/contact" }
+      ]
+    },
+    {
+      "id": "csir-1",
+      "type": "csir",
+      "title": "CSIR Charity Golf Day",
+      "subtitle": "CSIR Charity Golf Day, powered by H3C Technologies Africa",
+      "description": "CSIR Charity Golf Day aims to enhance and reinforce the learning experience of mathematics and science in rural communities, by donating learning materials, ensuring a brighter future for learners.",
+      "date": "2024-06-28",
+      "location": "Woodhill Country Club",
+      "venue": {
+        "name": "Woodhill Country Club",
+        "url": "https://woodhillestate.co.za/golf-course-info/",
+        "address": "1143 Woodhill Dr, Garsfontein, Pretoria, 0076, South Africa"
+      },
+      "contact": {
+        "email": "mandla@blackeaglegroup.co.za",
+        "phone": "082-624-9680"
+      },
+      "hero": {
+        "carousel": [
+          {
+            "image": "/cassi/img/projects/CSIR9.jpg",
+            "title": "CSIR Charity Golf Day - Woodhill Country Club",
+            "subtitle": "Golf Tournaments"
+          }
+        ]
+      },
+      "content": {
+        "welcome": {
+          "heading": "CSIR Charity Golf Day",
+          "subheading": "Powered by H3C Technologies Africa",
+          "text": "CSIR Charity Golf Day, powered by H3C Technologies Africa took place on 28 June 2024 at the Woodhill Country Club. We are grateful to the following sponsors who made the day and fundraising possible:"
+        },
+        "about": {
+          "heading": "More About The Event",
+          "paragraphs": [
+            "The CSIR Charity Golf Day aims to enhance and reinforce the learning experience of mathematics and science in rural communities, by donating learning materials, ensuring a brighter future for learners.",
+            "Check out the GOLF DAY DETAILS DOCUMENT: Course opening, Setting up of waterholes, Registration of players, Welcoming and opening remarks, Group and team photos, Departure to respective tee boxes, Gun shot tee off, Exhibition and Prize giving dinner."
+          ],
+          "document": {
+            "title": "CSIR GOLF DAY INFO FINAL 23 June 2024",
+            "path": "/csir/images/INFO_FINAL_23June.pdf"
+          }
+        },
+        "aideMemoire": {
+          "event": "CSIR Charity Golf Day",
+          "date": "28 June 2024",
+          "venue": "Woodhill Country Club",
+          "times": "Tee-Off: 07:45 AM | Registration: 06:45 AM",
+          "registrationDeadline": "Fourball registration closing date 8 April 2024",
+          "sponsorDeadline": "Sponsor closing date 12 April 2024. Payment must be made in full within 30 days of booking form submission by 12 April 2024, whichever is sooner.",
+          "note": "Every donation is tax-deductible, and we will provide a receipt for your records."
+        }
+      },
+      "sponsors": [
+        { "name": "H3C Technologies Africa", "logo": "/csir/Logos/H3C.jpg", "url": "", "tier": "diamond" },
+        { "name": "Amscor", "logo": "/csir/Logos/Amscor2.jpg", "url": "" },
+        { "name": "Three Frames", "logo": "/csir/Logos/Threeframes.jpg", "url": "" },
+        { "name": "TakeNote", "logo": "/csir/Logos/Takenote.jpg", "url": "" },
+        { "name": "Avis", "logo": "/csir/Logos/avis.jpg", "url": "" },
+        { "name": "Kgoano", "logo": "/csir/Logos/Kgoano.jpg", "url": "" },
+        { "name": "OSH", "logo": "/csir/Logos/OSH.jpg", "url": "" },
+        { "name": "Bestmed", "logo": "/csir/Logos/Bestmed.jpg", "url": "" },
+        { "name": "HENSOLDT", "logo": "/csir/Logos/Hensoldt.jpg", "url": "" },
+        { "name": "Momentum", "logo": "/csir/Logos/Momentum.jpg", "url": "" },
+        { "name": "Muluma", "logo": "/csir/Logos/Muluma.jpg", "url": "" },
+        { "name": "Sandock", "logo": "/csir/Logos/Sandock.jpg", "url": "" },
+        { "name": "SANParks", "logo": "/csir/Logos/SANparks.jpg", "url": "" },
+        { "name": "Standard Bank", "logo": "/csir/Logos/Std Bank.jpg", "url": "" },
+        { "name": "Time Square", "logo": "/csir/Logos/Time_Square.jpg", "url": "" },
+        { "name": "SVI", "logo": "/csir/Logos/SVI.jpg", "url": "" },
+        { "name": "Virgin Active", "logo": "/csir/Logos/Virgin Active.jpg", "url": "" },
+        { "name": "Teraco", "logo": "/csir/Logos/Teraco.jpg", "url": "" }
+      ],
+      "contact": {
+        "form": {
+          "fields": [
+            { "name": "name", "type": "text", "label": "Full Name", "required": true },
+            { "name": "email", "type": "email", "label": "Email address", "required": true },
+            { "name": "subject", "type": "text", "label": "Subject", "required": true },
+            { "name": "message", "type": "textarea", "label": "Message", "required": true }
+          ],
+          "endpoint": "/api/contact"
+        },
+        "map": {
+          "embed": "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14365.933225029978!2d28.31272!3d-25.820615000000004!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e955d92423abe43%3A0x92db695f27615316!2s1143%20Woodhill%20Dr%2C%20Garsfontein%2C%20Pretoria%2C%200076%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1747923686204!5m2!1sen!2sus",
+          "address": "1143 Woodhill Dr, Garsfontein, Pretoria, 0076, South Africa"
+        }
+      },
+      "gallery": {
+        "path": "/cassi/CSIRGolfDay",
+        "images": [
+          {
+            "original": "/cassi/img/projects/CSIR1.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR1.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR2.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR2.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR3.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR3.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR4.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR4.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR5.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR5.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR6.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR6.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR7.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR7.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR8.JPG",
+            "thumbnail": "/cassi/img/projects/CSIR8.JPG",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR9.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR9.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR10.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR10.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR11.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR11.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR12.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR12.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR13.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR13.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR14.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR14.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR15.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR15.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR17.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR17.jpg",
+            "description": "CSIR Charity Golf Day"
+          },
+          {
+            "original": "/cassi/img/projects/CSIR18.jpg",
+            "thumbnail": "/cassi/img/projects/CSIR18.jpg",
+            "description": "CSIR Charity Golf Day"
+          }
+        ]
+      },
+      "images": [],
+      "videos": [],
+      "pages": [
+        {
+          "path": "/events/csir",
+          "title": "Welcome",
+          "component": "index"
+        },
+        {
+          "path": "/events/csir/about",
+          "title": "ABOUT EVENT",
+          "component": "about"
+        },
+        {
+          "path": "/events/csir/event-detail",
+          "title": "EVENT DETAIL",
+          "component": "eventDetail"
+        },
+        {
+          "path": "/events/csir/aide-memoire",
+          "title": "AIDE MEMOIRE",
+          "component": "aideMemoire"
+        },
+        {
+          "path": "/events/csir/contact",
+          "title": "Contact",
+          "component": "contact"
+        },
+        {
+          "path": "/events/csir/gallery",
+          "title": "Gallery",
+          "component": "gallery"
+        }
+      ],
+      "navigation": [
+        { "label": "INVITATION", "path": "/events/csir/invitation" },
+        { "label": "ABOUT EVENT", "path": "/events/csir/about" },
+        { "label": "EVENT DETAIL", "path": "/events/csir/event-detail" },
+        { "label": "VENUE", "path": "https://woodhillestate.co.za/golf-course-info/", "external": true },
+        { "label": "AIDE MEMOIRE", "path": "/events/csir/aide-memoire" },
+        { "label": "GALLERY", "path": "/cassi/CSIRGolfDay" }
+      ]
+    }
+  ],
+  "eventTypes": {
+    "cot": {
+      "name": "City of Tshwane",
+      "slug": "cot",
+      "description": "COT & BEG-Holdings Management Golf Day events"
+    },
+    "csir": {
+      "name": "CSIR",
+      "slug": "csir",
+      "description": "CSIR Golf Day events"
+    }
+  }
+}
+

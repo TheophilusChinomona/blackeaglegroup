@@ -1,0 +1,45 @@
+# Black Eagle Group Website - Cursor Rules
+
+## Project Structure
+This is a multi-directory project with the main React application in `BlackEagleGroup.React/`.
+
+## Dependency Management
+
+### CRITICAL: Always use the correct directory for package management
+- The React app lives in `BlackEagleGroup.React/` - ALL npm/bun commands must run from this directory
+- Before running `bun install`, `bun add`, `npm install`, or similar commands, ALWAYS `cd` to `BlackEagleGroup.React/` first
+- Use absolute paths when uncertain: `cd "C:\Users\Theo\Desktop\Projects\Websites\Black Eagle Group\BlackEagleGroup.React"`
+
+### Before adding new imports
+1. Check if the package exists in `BlackEagleGroup.React/package.json`
+2. If not, install it BEFORE adding the import: `cd BlackEagleGroup.React; bun add <package-name>`
+3. Verify installation by checking `BlackEagleGroup.React/node_modules/<package-name>` exists
+
+### After modifying package.json manually
+- Always run `bun install` in `BlackEagleGroup.React/` to sync node_modules
+
+## PowerShell Compatibility
+- Use `;` instead of `&&` to chain commands (PowerShell doesn't support `&&`)
+- Example: `cd BlackEagleGroup.React; bun dev` NOT `cd BlackEagleGroup.React && bun dev`
+
+## Code Quality
+
+### CRITICAL: Always add imports when using functions/modules
+- When using a function, component, or utility from another file, ALWAYS add the corresponding import statement
+- Before using any function (e.g., `initScrollAnimations()`), verify it's imported at the top of the file
+- Check existing usage patterns in similar files (e.g., look at `Home.jsx` when modifying `About.jsx`)
+- Common project utilities to import:
+  - `import { initScrollAnimations } from '@/utils/scrollAnimations'`
+  - `import AnimatedElement from '@/components/animations/AnimatedElement'`
+
+## Development Server
+- Dev server runs on `http://localhost:5173/`
+- Start with: `cd BlackEagleGroup.React; bun dev`
+- If import errors occur after adding dependencies, restart the dev server
+
+## Key Directories
+- `BlackEagleGroup.React/` - Main React application (Vite + React + TailwindCSS)
+- `BlackEagleGroup.React/src/` - Source code
+- `BlackEagleGroup.React/public/` - Static assets
+- `agent-os/` - Project documentation and specs
+- `public_html/` - Legacy static HTML site (reference only)

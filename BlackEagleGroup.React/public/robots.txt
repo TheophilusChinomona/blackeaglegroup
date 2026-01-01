@@ -1,0 +1,13 @@
+# robots.txt for Black Eagle Group Holdings
+# https://blackeaglegroup.co.za
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://blackeaglegroup.co.za/sitemap.xml
+
+# Disallow admin or sensitive paths if any
+# Disallow: /admin/
+# Disallow: /api/
+

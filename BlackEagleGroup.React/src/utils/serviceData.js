@@ -94,7 +94,9 @@ export const getServiceCategories = async () => {
 export const getFeaturedServices = async () => {
   try {
     const services = await getAllServices()
-    return services.filter(service => service.featured === true)
+    return services
+      .filter(service => service.featured === true)
+      .sort((a, b) => (a.featuredOrder || 999) - (b.featuredOrder || 999))
   } catch (error) {
     console.error('Error getting featured services:', error)
     return []

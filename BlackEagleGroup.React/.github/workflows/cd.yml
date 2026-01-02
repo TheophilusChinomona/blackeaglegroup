@@ -1,0 +1,41 @@
+name: CD - Deploy to Production
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # Only run deployment if the CI checks pass (optional but recommended)
+    # needs: [build-and-test] 
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build Application
+        run: npm run build
+
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # Local directory to upload (the build output)
+          local-dir: ./dist/
+          # Remote directory on the server (cPanel public_html)
+          server-dir: ./public_html/
+          # Dangerous: this deletes files on the server that aren't in the local build
+          # Set to false if you have other files in public_html you want to keep
+          dangerous-clean-slate: false 

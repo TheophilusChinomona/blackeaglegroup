@@ -15,7 +15,8 @@
       "description": "VIP Protection, Detection & Protection Against Forced Entry, Conducting Patrols, CCTV Monitoring, Biometric Access Control, Electric Fence Monitoring, Digital Forensic Science, Managing & Monitoring Access To The Premises",
       "image": "/images/image_12.jpg",
       "order": 1,
-      "featured": true
+      "featured": true,
+      "featuredOrder": 1
     },
     {
       "id": 3,
@@ -80,7 +81,8 @@
       "description": "We improve a broken, damaged, or outdated structures of commercial or residential buildings.",
       "image": "/images/image_20.jpg",
       "order": 1,
-      "featured": true
+      "featured": true,
+      "featuredOrder": 3
     },
     {
       "id": 11,
@@ -121,7 +123,8 @@
       "description": "Let us help your plan, manage, and organize sensational events in the most efficient and cost effective way",
       "image": "/images/image_23.jpg",
       "order": 11,
-      "featured": true
+      "featured": true,
+      "featuredOrder": 2
     },
     {
       "id": 16,

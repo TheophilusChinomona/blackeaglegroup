@@ -168,6 +168,12 @@
   padding: 5rem 0;
 }
 
+/* Unified Clients Grid */
+.clients-main-grid-section {
+  background-color: #FFFFFF;
+  padding: 5rem 0;
+}
+
 /* Industry Sections */
 .clients-industry-section {
   padding: 5rem 0;
@@ -183,6 +189,7 @@
 
 @media (max-width: 768px) {
   .clients-featured-section,
+  .clients-main-grid-section,
   .clients-industry-section {
     padding: 3rem 0;
   }
@@ -621,6 +628,7 @@
   
   /* Reduce section padding */
   .clients-featured-section,
+  .clients-main-grid-section,
   .clients-industry-section,
   .clients-testimonial-section {
     padding: 4rem 0;
@@ -637,6 +645,7 @@
   
   /* Full width cards with optimized spacing */
   .clients-featured-section,
+  .clients-main-grid-section,
   .clients-industry-section,
   .clients-testimonial-section {
     padding: 2.5rem 0;

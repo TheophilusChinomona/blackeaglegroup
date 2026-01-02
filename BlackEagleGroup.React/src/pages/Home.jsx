@@ -1,16 +1,23 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { Users, Trophy, Handshake, ClipboardCheck } from 'lucide-react'
 import SEO from '@/components/SEO'
-import Hero from '@/components/Hero'
 import EventCard from '@/components/EventCard'
+import GridMotion from '@/components/GridMotion/GridMotion'
 import { initScrollAnimations } from '@/utils/scrollAnimations'
 import { getCOTEvents, getCSIREvents } from '@/utils/eventData'
+import { homeHeroImages } from '@/data/homeHeroImages'
 
 const Home = () => {
   const [mainEvents, setMainEvents] = useState([])
   const [eventsLoading, setEventsLoading] = useState(true)
+
+  // Select random images for the grid on mount
+  const gridImages = useMemo(() => {
+    const shuffled = [...homeHeroImages].sort(() => 0.5 - Math.random())
+    return shuffled.slice(0, 28)
+  }, [])
   
   // Refs for service cards (staggered 50ms delays)
   const serviceCard1Ref = useRef(null)
@@ -95,10 +102,20 @@ const Home = () => {
         organization={true}
       />
       {/* Hero Section */}
-      <Hero 
-        title="Welcome to Black Eagle Group Holdings"
-        subtitle="Premier stakeholder relations & event management"
-      />
+      <section className="home-hero">
+        <div className="home-hero-bg">
+          <GridMotion
+            items={gridImages}
+            gradientColor="rgba(6, 8, 18, 0.95)"
+          />
+        </div>
+        <div className="home-hero-overlay"></div>
+        <Container className="home-hero-content text-center">
+          <p className="home-hero-kicker">Black Eagle Group Holdings</p>
+          <h1 className="home-hero-title">Welcome to Black Eagle Group Holdings</h1>
+          <p className="home-hero-subtitle">Premier stakeholder relations & event management</p>
+        </Container>
+      </section>
 
       {/* Services Section */}
       <section className="ftco-section services-section section-alt-1">

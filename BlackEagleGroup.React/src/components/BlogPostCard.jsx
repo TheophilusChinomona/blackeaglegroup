@@ -1,5 +1,6 @@
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Card, CardContent } from '@/components/ui/card'
+import { CardSpotlight } from '@/components/ui/card-spotlight'
 import { cn } from '@/utils'
 
 /**
@@ -7,36 +8,80 @@ import { cn } from '@/utils'
  * Displays a blog post with image, title, excerpt, and read more link
  * Matches styling from public_html/blog.html
  */
-const BlogPostCard = ({ image, title, excerpt, slug, className }) => {
-  return (
-    <div className={cn('flex justify-center mb-8', className)}>
-      <Card className="w-full overflow-hidden border-0 shadow-sm">
-        <Link to={`/blog/${slug}`} className="block">
-          <div
-            className="block-20 w-full h-[270px] bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${image})` }}
-            role="img"
-            aria-label={title}
-          />
+const BlogPostCard = ({ image, title, excerpt, slug, date, className }) => {
+  const fallbackImage = "linear-gradient(135deg, rgba(26, 28, 25, 0.9), rgba(75, 148, 0, 0.35))"
+  const cardRef = useRef(null)
+  const [isVisible, setIsVisible] = useState(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false
+  )
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const handler = (event) => setPrefersReducedMotion(event.matches)
+    mediaQuery.addEventListener('change', handler)
+    return () => mediaQuery.removeEventListener('change', handler)
+  }, [])
+
+  useEffect(() => {
+    if (prefersReducedMotion) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      { threshold: 0.1, rootMargin: '50px' }
+    )
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [prefersReducedMotion])
+
+  const cardContent = (
+    <article className={cn('blog-card', className)}>
+      <Link to={`/blog/${slug}`} className="blog-card-media">
+        <div
+          className="blog-card-image"
+          style={{ backgroundImage: image ? `url(${image})` : fallbackImage }}
+          role="img"
+          aria-label={title}
+        />
+        <span className="blog-card-tag">Insight</span>
+      </Link>
+      <div className="blog-card-body">
+        <div className="blog-meta">
+          <span>{date}</span>
+          <span>Black Eagle Group</span>
+        </div>
+        <h3 className="blog-card-title">
+          <Link to={`/blog/${slug}`}>{title}</Link>
+        </h3>
+        <p className="blog-card-excerpt">{excerpt}</p>
+        <Link className="blog-cta" to={`/blog/${slug}`}>
+          Read the story
         </Link>
-        <CardContent className="pt-4">
-          <h3 className="text-lg font-normal mb-4">
-            <Link 
-              to={`/blog/${slug}`} 
-              className="text-black hover:text-[#59B200] transition-colors"
-            >
-              {title}
-            </Link>
-          </h3>
-          <p className="text-sm leading-6 text-gray-700 mb-4">{excerpt}</p>
-          <Link
-            to={`/blog/${slug}`}
-            className="text-sm font-semibold uppercase text-black hover:text-[#59B200] transition-colors"
-          >
-            Read More
-          </Link>
-        </CardContent>
-      </Card>
+      </div>
+    </article>
+  )
+
+  const shouldAnimate = isVisible && !prefersReducedMotion
+
+  if (shouldAnimate) {
+    return (
+      <div ref={cardRef}>
+        <CardSpotlight className="rounded-[22px]">
+          {cardContent}
+        </CardSpotlight>
+      </div>
+    )
+  }
+
+  return (
+    <div ref={cardRef}>
+      {cardContent}
     </div>
   )
 }

@@ -6,6 +6,24 @@ export default {
   ],
   theme: {
     extend: {
+      keyframes: {
+        shimmer: {
+          '100%': { transform: 'translateX(100%)' },
+        },
+        'modal-in': {
+          '0%': { opacity: '0', transform: 'translate(-50%, -48%) scale(0.95)' },
+          '100%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1)' },
+        },
+        'modal-out': {
+          '0%': { opacity: '1', transform: 'translate(-50%, -50%) scale(1)' },
+          '100%': { opacity: '0', transform: 'translate(-50%, -48%) scale(0.95)' },
+        },
+      },
+      animation: {
+        shimmer: 'shimmer 2s infinite',
+        'modal-in': 'modal-in 0.2s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+        'modal-out': 'modal-out 0.15s cubic-bezier(0.4, 0, 0.2, 1) forwards',
+      },
       fontFamily: {
         serif: ['"Playfair Display"', 'Georgia', 'serif'],
         sans: ['"Source Sans 3"', 'system-ui', '-apple-system', 'sans-serif'],

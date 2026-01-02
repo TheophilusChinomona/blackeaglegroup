@@ -1,85 +1,97 @@
 import { Link } from 'react-router-dom'
-import { Container, Row, Col } from 'react-bootstrap'
-import BlogPostCard from '@/components/BlogPostCard'
+import BlogBlock from '@/components/shadcn-studio/blocks/blog-component-01/blog-component-01'
 import { blogPosts } from '@/data/blogPosts'
 
 const Blog = () => {
+  const [featuredPost, ...remainingPosts] = blogPosts
+  const blogCards = remainingPosts.map((post) => ({
+    img: post.image,
+    alt: post.title,
+    title: post.title,
+    description: post.excerpt,
+    blogLink: `/blog/${post.slug}`
+  }))
+
   return (
     <>
-      {/* Hero Section */}
-      <section 
-        className="hero-wrap hero-wrap-2" 
-        style={{ backgroundImage: "url('/images/bg_2.jpg')" }}
-      >
-        <div className="overlay"></div>
-        <Container className="hero-content">
-        </Container>
-        <Col lg={12} className="hero-text-col">
-          {/* Breadcrumbs */}
-          <div className="hero-breadcrumbs">
-            <span>
-              <Link to="/">Home</Link>
-            </span>
-            <span>
-              <i className="ion-ios-arrow-forward"></i>
-              <span>Blog</span>
-            </span>
+      <section className="blog-hero">
+        <div className="blog-hero-overlay"></div>
+        <div className="container blog-hero-inner">
+          <div className="blog-hero-breadcrumbs">
+            <Link to="/">Home</Link>
+            <span className="blog-hero-divider">/</span>
+            <span>Blog</span>
           </div>
-
-          {/* Title */}
-          <div className="hero-text text-center">
-            <h1 className="hero-heading">Blog</h1>
+          <div className="blog-hero-text">
+            <p className="blog-hero-kicker">Journal</p>
+            <h1 className="blog-hero-title">Blog</h1>
+            <p className="blog-hero-lede">
+              Field notes, partnerships, and community moments from Black Eagle Group Holdings.
+            </p>
+            <div className="blog-hero-meta">
+              <span>{blogPosts.length} stories</span>
+              <span>Community + Events</span>
+              <span>Updated quarterly</span>
+            </div>
           </div>
-        </Col>
+        </div>
       </section>
 
-      {/* Blog Posts Section */}
-      <section className="ftco-section">
-        <div className="container">
-          <div className="row d-flex justify-content-center">
-            {blogPosts.map((post) => (
-              <div key={post.slug} className="col-md-10 text-center d-flex ftco-animate">
-                {post.videoUrl ? (
-                  <div className="blog-entry justify-content-end w-100">
+      {featuredPost && (
+        <section className="blog-featured-section">
+          <div className="container">
+            <div className="blog-section-head">
+              <div>
+                <p className="blog-section-kicker">Featured</p>
+                <h2 className="blog-section-title">Latest highlight</h2>
+              </div>
+              <p className="blog-section-description">
+                A closer look at our collaborations and the people behind the events.
+              </p>
+            </div>
+            <div className="blog-featured">
+              <div className="blog-featured-media">
+                {featuredPost.videoUrl ? (
+                  <div className="blog-featured-video">
                     <iframe
-                      width="560"
-                      height="315"
-                      src={post.videoUrl}
-                      title={post.title}
+                      src={featuredPost.videoUrl}
+                      title={featuredPost.title}
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       referrerPolicy="strict-origin-when-cross-origin"
                       allowFullScreen
-                      className="w-100"
-                      style={{ maxWidth: '560px', margin: '0 auto' }}
                     ></iframe>
-                    <div className="text pt-4">
-                      <div className="meta mb-3">
-                        <div><a href="#">{post.date}</a></div>
-                        <div><a href="#" className="meta-chat"><span className="icon-chat"></span> 3</a></div>
-                      </div>
-                      <h3 className="heading mt-2">
-                        <a href={`/blog/${post.slug}`}>{post.title}</a>
-                      </h3>
-                      <p>{post.excerpt}</p>
-                    </div>
                   </div>
                 ) : (
-                  <BlogPostCard
-                    image={post.image}
-                    title={post.title}
-                    excerpt={post.excerpt}
-                    slug={post.slug}
+                  <div
+                    className="blog-featured-image"
+                    style={{ backgroundImage: `url(${featuredPost.image})` }}
+                    role="img"
+                    aria-label={featuredPost.title}
                   />
                 )}
               </div>
-            ))}
+              <div className="blog-featured-content">
+                <div className="blog-meta">
+                  <span>{featuredPost.date}</span>
+                  <span>Featured story</span>
+                </div>
+                <h3 className="blog-featured-title">
+                  <Link to={`/blog/${featuredPost.slug}`}>{featuredPost.title}</Link>
+                </h3>
+                <p className="blog-featured-excerpt">{featuredPost.excerpt}</p>
+                <Link className="blog-cta" to={`/blog/${featuredPost.slug}`}>
+                  Read the story
+                </Link>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      <BlogBlock blogCards={blogCards} />
     </>
   )
 }
 
 export default Blog
-

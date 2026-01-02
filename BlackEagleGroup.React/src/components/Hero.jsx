@@ -12,11 +12,14 @@ import { discoverHeroImages } from '@/utils/heroImages'
  * @param {string} props.subtitle - Optional tagline/subtitle
  * @param {Array<{name: string, url: string}>} props.breadcrumbs - Optional breadcrumb navigation array
  * @param {string} props.backgroundImage - Optional static background image URL (overrides carousel)
+ * @param {string} props.backgroundVideo - Optional background video URL (overrides image/carousel)
+ * @param {string} props.backgroundVideoPoster - Optional poster image for background video
  */
-const Hero = ({ title, subtitle, breadcrumbs, backgroundImage }) => {
+const Hero = ({ title, subtitle, breadcrumbs, backgroundImage, backgroundVideo, backgroundVideoPoster }) => {
   const [carouselImages, setCarouselImages] = useState([])
   const [activeIndex, setActiveIndex] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
   const heroSectionRef = useRef(null)
   const isPausedRef = useRef(false)
 
@@ -35,10 +38,18 @@ const Hero = ({ title, subtitle, breadcrumbs, backgroundImage }) => {
     loadImages()
   }, [])
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    setPrefersReducedMotion(mediaQuery.matches)
+    const handleChange = (event) => setPrefersReducedMotion(event.matches)
+    mediaQuery.addEventListener('change', handleChange)
+    return () => mediaQuery.removeEventListener('change', handleChange)
+  }, [])
+
   // Auto-play carousel with pause on hover
   useEffect(() => {
     // Only auto-play if there are multiple images and no static background
-    if (backgroundImage || carouselImages.length <= 1) return
+    if (backgroundVideo || backgroundImage || carouselImages.length <= 1) return
 
     let intervalId
 
@@ -108,7 +119,21 @@ const Hero = ({ title, subtitle, breadcrumbs, backgroundImage }) => {
     <section className="hero-section" ref={heroSectionRef}>
       {/* Background - Static or Carousel */}
       <div className="hero-background-carousel">
-        {backgroundImage ? (
+        {backgroundVideo ? (
+          <div className="hero-video-wrapper" style={parallaxTransform} aria-hidden="true">
+            <video
+              className="hero-background-video"
+              autoPlay={!prefersReducedMotion}
+              loop={!prefersReducedMotion}
+              muted
+              playsInline
+              preload="metadata"
+              poster={backgroundVideoPoster || backgroundImage}
+            >
+              <source src={backgroundVideo} type="video/webm" />
+            </video>
+          </div>
+        ) : backgroundImage ? (
           // Static background image when backgroundImage prop is provided
           <div
             className="hero-carousel-slide active"

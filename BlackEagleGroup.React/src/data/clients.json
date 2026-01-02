@@ -116,7 +116,7 @@
       "image": "/images/car-17.jpg",
       "referenceLink": "mailto:AWilliams@csir.co.za",
       "phoneNumber": "0861400800",
-      "featured": true,
+      "featured": false,
       "order": 1,
       "description": "Council for Scientific and Industrial Research"
     },

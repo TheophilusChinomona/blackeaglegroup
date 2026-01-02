@@ -37,7 +37,8 @@ const formatFormDataForPHP = (data) => {
   // Add all form fields
   if (data.name) params.append('name', data.name)
   if (data.email) params.append('email', data.email)
-  if (data.cell) params.append('cell', data.cell)
+  // Map both 'cell' and 'phone' to 'cell' for the PHP script
+  if (data.cell || data.phone) params.append('cell', data.cell || data.phone)
   if (data.subject) params.append('subject', data.subject)
   if (data.message) params.append('message', data.message)
   

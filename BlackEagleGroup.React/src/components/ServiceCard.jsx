@@ -1,12 +1,14 @@
 import { useState, useRef, useEffect } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
+import { Link } from 'react-router-dom'
 import { cn } from '@/utils'
+import { CardContainer, CardBody, CardItem } from '@/components/ui/3d-card'
+import { CardSpotlight } from '@/components/ui/card-spotlight'
 
 /**
  * ServiceCard Component
  * Displays a service with image, title, and description
- * Includes mouse-following parallax effect on hover
- * Enhanced with category color accents and featured variant support
+ * Matches the ClientCard (Key Partnerships) visual language
+ * Includes 3D effects for featured services and Spotlight for regular ones
  */
 const ServiceCard = ({ 
   image, 
@@ -15,135 +17,143 @@ const ServiceCard = ({
   className,
   category,
   featured = false,
-  categoryColor
+  categoryColor,
+  categoryLabel
 }) => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const [isHovered, setIsHovered] = useState(false)
-  const imageRef = useRef(null)
-  const prefersReducedMotion = useRef(false)
+  const cardRef = useRef(null)
+  const [isVisible, setIsVisible] = useState(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(() => 
+    typeof window !== 'undefined' ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false
+  )
 
   // Check for reduced motion preference
   useEffect(() => {
-    prefersReducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const handler = (e) => setPrefersReducedMotion(e.matches)
+    mediaQuery.addEventListener('change', handler)
+    return () => mediaQuery.removeEventListener('change', handler)
   }, [])
 
-  const handleMouseMove = (e) => {
-    if (prefersReducedMotion.current || !imageRef.current) return
+  // Intersection Observer for visibility
+  useEffect(() => {
+    if (prefersReducedMotion) return
     
-    const rect = imageRef.current.getBoundingClientRect()
-    // Calculate position from center (-1 to 1)
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2
-    setMousePosition({ x, y })
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      { threshold: 0.1, rootMargin: '50px' }
+    )
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [prefersReducedMotion])
+
+  const accentColor = categoryColor || '#4B9400'
+  const shouldAnimate = isVisible && !prefersReducedMotion
+
+  const cardContent = (
+    <article 
+      className={cn(
+        "service-card bg-white rounded-xl overflow-hidden h-full flex flex-col",
+        "shadow-card hover:shadow-card-hover",
+        "border-t-4",
+        "transition-all duration-300 ease-out",
+        !featured && "hover:-translate-y-1",
+        featured && "border-t-[5px]"
+      )}
+      style={{ borderTopColor: accentColor }}
+    >
+      {/* Image Area */}
+      <div 
+        className={cn(
+          "w-full overflow-hidden relative shrink-0",
+          featured ? "h-[200px] md:h-[240px]" : "h-[180px]"
+        )}
+      >
+        <img 
+          src={image} 
+          alt={title}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          loading="lazy"
+        />
+        {/* Subtle overlay */}
+        <div 
+          className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none"
+          style={{ backgroundColor: accentColor }}
+        />
+      </div>
+      
+      {/* Content Area */}
+      <div className="p-6 flex flex-col flex-grow">
+        {(categoryLabel || category) && (
+          <p 
+            className="text-xs uppercase tracking-wider font-semibold mb-2" 
+            style={{ color: accentColor }}
+          >
+            {categoryLabel || category}
+          </p>
+        )}
+        
+        <h3 
+          className={cn(
+            "font-serif font-medium text-brand-dark mb-3 leading-tight line-clamp-2 min-h-[2.5rem]",
+            featured ? "text-2xl" : "text-xl md:text-2xl"
+          )}
+        >
+          {title}
+        </h3>
+        
+        <p className="text-sm text-gray-700 leading-6 mb-6 line-clamp-3 min-h-[4.5rem]">
+          {description}
+        </p>
+
+        {/* Action Button */}
+        <div className="mt-auto">
+          <Link 
+            to="/contact" 
+            className="btn-reference w-full"
+          >
+            Enquire Now
+          </Link>
+        </div>
+      </div>
+    </article>
+  )
+
+  if (featured && shouldAnimate) {
+    return (
+      <div ref={cardRef} className={cn('h-full mb-4 group', className)}>
+        <CardContainer containerClassName="p-0 h-full">
+          <CardBody className="w-full h-full">
+            <CardItem translateZ={50} className="w-full h-full">
+              {cardContent}
+            </CardItem>
+          </CardBody>
+        </CardContainer>
+      </div>
+    )
   }
 
-  const handleMouseEnter = () => {
-    setIsHovered(true)
+  if (!featured && shouldAnimate) {
+    return (
+      <div ref={cardRef} className={cn('h-full mb-4 group', className)}>
+        <CardSpotlight className="rounded-xl h-full">
+          {cardContent}
+        </CardSpotlight>
+      </div>
+    )
   }
-
-  const handleMouseLeave = () => {
-    setIsHovered(false)
-    setMousePosition({ x: 0, y: 0 })
-  }
-
-  // Calculate transform based on mouse position (subtle movement: max 10px)
-  const parallaxStyle = {
-    backgroundImage: `url(${image})`,
-    transform: isHovered 
-      ? `translate(${mousePosition.x * -10}px, ${mousePosition.y * -10}px) scale(1.08)`
-      : 'translate(0, 0) scale(1)',
-    transition: isHovered 
-      ? 'transform 0.1s ease-out' 
-      : 'transform 0.4s ease-out'
-  }
-
-  // Determine accent color (use categoryColor prop if provided, otherwise default)
-  const accentColor = categoryColor || '#59B200'
-  
-  // Image height - featured cards have taller images
-  const imageHeight = featured ? 'h-[400px] md:h-[450px]' : 'h-[270px]'
 
   return (
-    <div className={cn('flex h-full', className)}>
-      <Card 
-        className={cn(
-          "w-full overflow-hidden border-0 shadow-sm flex flex-col",
-          "transition-all duration-300 hover:shadow-lg",
-          "group relative"
-        )}
-        style={{
-          borderTop: `3px solid ${accentColor}`,
-        }}
-      >
-        {/* Category color accent bar on hover */}
-        <div 
-          className="absolute top-0 left-0 right-0 h-1 transition-all duration-300"
-          style={{
-            backgroundColor: accentColor,
-            transform: isHovered ? 'scaleX(1)' : 'scaleX(0)',
-            transformOrigin: 'left'
-          }}
-        />
-        
-        <div 
-          ref={imageRef}
-          className={cn(
-            "block-20 w-full overflow-hidden flex-shrink-0 relative",
-            imageHeight
-          )}
-          onMouseMove={handleMouseMove}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <div
-            className="w-full h-full bg-cover bg-center bg-no-repeat"
-            style={parallaxStyle}
-            role="img"
-            aria-label={title}
-          />
-          {/* Subtle overlay on hover with category color */}
-          <div 
-            className="absolute inset-0 transition-opacity duration-300"
-            style={{
-              backgroundColor: accentColor,
-              opacity: isHovered ? 0.1 : 0
-            }}
-          />
-        </div>
-        <CardContent className={cn(
-          "pt-4 flex-grow",
-          featured && "pt-6"
-        )}>
-          <h3 className={cn(
-            "mb-4 font-medium",
-            featured ? "text-xl md:text-2xl" : "text-lg"
-          )}>
-            <a 
-              href="#" 
-              className={cn(
-                "text-black transition-colors no-underline",
-                "hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-sm",
-                "focus:ring-[#59B200]"
-              )}
-              style={{
-                color: isHovered ? accentColor : 'inherit'
-              }}
-              onFocus={handleMouseEnter}
-              onBlur={handleMouseLeave}
-            >
-              {title}
-            </a>
-          </h3>
-          <p className={cn(
-            "leading-6 text-gray-700",
-            featured ? "text-base" : "text-sm"
-          )}>
-            {description}
-          </p>
-        </CardContent>
-      </Card>
+    <div ref={cardRef} className={cn('h-full mb-4 group', className)}>
+      {cardContent}
     </div>
   )
 }
 
 export default ServiceCard
+

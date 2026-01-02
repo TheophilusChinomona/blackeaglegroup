@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Container, Row, Col } from 'react-bootstrap'
 import { getEventById } from '@/utils/eventData'
 import EventCarousel from '@/components/EventCarousel'
-import EventGallery from '@/components/EventGallery'
+import CircularGallery from '@/components/CircularGallery/CircularGallery'
 import SponsorLogos from '@/components/SponsorLogos'
 import EventContactModal from '@/components/EventContactModal'
 import { Button } from '@/components/ui/button'
@@ -169,7 +169,16 @@ const CSIRIndex = () => {
             </Row>
             <Row>
               <Col md={12}>
-                <EventGallery items={event.gallery.images} />
+                <div className="circular-gallery-shell">
+                  <CircularGallery
+                    items={event.gallery.images.map((item, index) => ({
+                      image: item.original || item.thumbnail || item,
+                      text: item.description || item.alt || `Gallery image ${index + 1}`
+                    }))}
+                    textColor="#1f2937"
+                    borderRadius={0.08}
+                  />
+                </div>
               </Col>
             </Row>
           </Container>

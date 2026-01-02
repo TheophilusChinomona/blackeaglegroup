@@ -10,6 +10,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
+import { AnimatedButton } from '@/components/ui/animated-button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
@@ -110,17 +111,17 @@ const EventContactModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[500px]">
+      <DialogContent className="sm:max-w-[460px] p-4 sm:p-5">
         <DialogHeader>
           <DialogTitle>{modalTitle}</DialogTitle>
           <DialogDescription>
             {modalDescription}
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-3">
           {defaultFields.map((field) => (
-            <div key={field.name} className="space-y-2">
-              <Label htmlFor={field.name}>
+            <div key={field.name} className="space-y-1.5">
+              <Label htmlFor={field.name} className="text-sm">
                 {field.label}
                 {field.required && <span className="text-red-500 ml-1">*</span>}
               </Label>
@@ -137,7 +138,7 @@ const EventContactModal = ({
                     }),
                   })}
                   placeholder={field.placeholder || `Enter ${field.label.toLowerCase()}`}
-                  className={errors[field.name] ? 'border-red-500' : ''}
+                  className={`text-sm min-h-[96px] ${errors[field.name] ? 'border-red-500' : ''}`}
                 />
               ) : (
                 <Input
@@ -153,7 +154,7 @@ const EventContactModal = ({
                     }),
                   })}
                   placeholder={field.placeholder || `Enter ${field.label.toLowerCase()}`}
-                  className={errors[field.name] ? 'border-red-500' : ''}
+                  className={`text-sm h-9 ${errors[field.name] ? 'border-red-500' : ''}`}
                 />
               )}
               {errors[field.name] && (
@@ -174,18 +175,22 @@ const EventContactModal = ({
             </div>
           )}
 
-          <div className="flex justify-end gap-3 pt-4">
-            <Button
+          <div className="flex justify-end gap-2 pt-3">
+            <AnimatedButton
               type="button"
               variant="outline"
               onClick={() => onOpenChange(false)}
               disabled={isSubmitting}
             >
               Cancel
-            </Button>
-            <Button type="submit" disabled={isSubmitting}>
+            </AnimatedButton>
+            <AnimatedButton 
+              type="submit" 
+              isLoading={isSubmitting}
+              className="min-w-[120px]"
+            >
               {isSubmitting ? 'Sending...' : 'Send Message'}
-            </Button>
+            </AnimatedButton>
           </div>
         </form>
       </DialogContent>

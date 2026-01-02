@@ -1,0 +1,1 @@
+i want the cards on the clients page clients.tsx to have the same size card for non-featured clients. the template to use is the non featured VW card. all cards must look like that one, secondly we dont need to have all those sub sections for the client categories, we can remove the section and use a grid for the clients card after the featured clients

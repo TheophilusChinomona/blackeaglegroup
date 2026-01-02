@@ -378,7 +378,7 @@ const PropertyServices = () => {
       {/* Hero Section with Property Background */}
       <Hero 
         title="Property Services"
-        backgroundImage="/images/cp.jpg"
+        backgroundImage="/images/heros/property-services.png"
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Property Services', url: '/property-services' }

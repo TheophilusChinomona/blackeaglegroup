@@ -62,15 +62,18 @@ const headerVariants = {
 
 // Animated Client Card Wrapper Component
 const AnimatedClientCard = ({ client, index, scrollYProgress, industryColor }) => {
-  const delay = 0.1 + (index * 0.05)
+  // Stagger per row (4 cards per row on large screens)
+  const rowIndex = Math.floor(index / 4)
+  // First row starts immediately when section enters view
+  const delay = rowIndex * 0.08
   const cardOpacity = useTransform(
     scrollYProgress, 
-    [delay, delay + 0.3], 
+    [delay, delay + 0.25], 
     prefersReducedMotion ? [1, 1] : [0, 1]
   )
   const cardY = useTransform(
     scrollYProgress, 
-    [delay, delay + 0.3], 
+    [delay, delay + 0.25], 
     prefersReducedMotion ? [0, 0] : [20, 0]
   )
   
@@ -156,49 +159,22 @@ const FeaturedClientsSection = ({ featuredClients, industries }) => {
   )
 }
 
-// Industry Section Component
-const IndustrySection = ({ industryKey, industryData, clients, sectionIndex }) => {
+// Unified Clients Grid Section Component
+const UnifiedClientsGridSection = ({ clients }) => {
   const sectionRef = useRef(null)
   const { scrollYProgress: sectionScrollProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "end start"]
   })
 
-  // Header animations
-  const headerOpacity = useTransform(
-    sectionScrollProgress, 
-    [0.05, 0.35], 
-    prefersReducedMotion ? [1, 1] : [0, 1]
-  )
-  const headerY = useTransform(
-    sectionScrollProgress, 
-    [0.05, 0.35], 
-    prefersReducedMotion ? [0, 0] : [20, 0]
-  )
-
-  const industryColor = industryData?.color || 'var(--color-primary)'
-
   if (clients.length === 0) return null
-
-  // Alternate between white and cream backgrounds
-  const bgClass = sectionIndex % 2 === 0 ? 'bg-white' : 'bg-cream'
 
   return (
     <section 
       ref={sectionRef}
-      className={`clients-industry-section ${bgClass}`}
+      className="clients-main-grid-section"
     >
       <Container>
-        {/* Industry Header */}
-        <motion.div style={{ opacity: headerOpacity, y: headerY }}>
-          <SectionHeader
-            label={industryData?.name || industryKey}
-            description={industryData?.description}
-            align="center"
-          />
-        </motion.div>
-
-        {/* Clients Grid */}
         <Row className="d-flex">
           {clients.map((client, index) => (
             <Col 
@@ -213,7 +189,6 @@ const IndustrySection = ({ industryKey, industryData, clients, sectionIndex }) =
                 client={client}
                 index={index}
                 scrollYProgress={sectionScrollProgress}
-                industryColor={industryColor}
               />
             </Col>
           ))}
@@ -428,6 +403,12 @@ const Clients = () => {
   // Filter, search, and sort clients
   const getFilteredAndSortedClients = () => {
     let filtered = [...allClients]
+    const tailClientOrder = [
+      'Mineral Resources',
+      'International Relations',
+      'Tshwane Open',
+      'Volvo Motors'
+    ]
 
     // Apply industry filter
     if (selectedIndustry !== 'all') {
@@ -470,34 +451,17 @@ const Clients = () => {
         break
     }
 
-    return filtered
-  }
+    const tailClients = tailClientOrder
+      .map((name) => filtered.find((client) => client.name === name))
+      .filter(Boolean)
+    const tailIds = new Set(tailClients.map((client) => client.id))
+    const remainingClients = filtered.filter((client) => !tailIds.has(client.id))
 
-  // Group clients by industry
-  const getClientsByIndustryGrouped = () => {
-    const filtered = getFilteredAndSortedClients()
-    const grouped = {}
-    
-    filtered.forEach(client => {
-      if (!grouped[client.industry]) {
-        grouped[client.industry] = []
-      }
-      grouped[client.industry].push(client)
-    })
-
-    // Sort within each industry by order field
-    Object.keys(grouped).forEach(industry => {
-      grouped[industry].sort((a, b) => {
-        return (a.order || 999) - (b.order || 999)
-      })
-    })
-
-    return grouped
+    return [...remainingClients, ...tailClients]
   }
 
   const filteredClients = getFilteredAndSortedClients()
-  const clientsByIndustry = getClientsByIndustryGrouped()
-  const industryKeys = Object.keys(clientsByIndustry).sort()
+  const nonFeaturedClients = filteredClients.filter(client => !client.featured)
 
   // Calculate statistics
   const clientCount = allClients.length
@@ -582,21 +546,8 @@ const Clients = () => {
           />
         )}
 
-        {/* Industry Sections */}
-        {industryKeys.map((industryKey, index) => {
-          const industryData = industries[industryKey] || {}
-          const industryClients = clientsByIndustry[industryKey] || []
-          
-          return (
-            <IndustrySection
-              key={industryKey}
-              industryKey={industryKey}
-              industryData={industryData}
-              clients={industryClients}
-              sectionIndex={index}
-            />
-          )
-        })}
+        {/* Unified Clients Grid */}
+        <UnifiedClientsGridSection clients={nonFeaturedClients} />
 
         {/* Client Logo Showcase Section */}
         {selectedIndustry === 'all' && searchQuery === '' && allClients.filter(c => c.logo).length > 0 && (

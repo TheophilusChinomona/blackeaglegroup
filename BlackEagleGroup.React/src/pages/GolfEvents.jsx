@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import { getCOTEvents, getCSIREvents, searchAndFilterEvents } from '@/utils/eventData'
 import { isFutureEvent } from '@/utils/dateUtils'
-import Hero from '@/components/Hero'
+import EventCarousel from '@/components/EventCarousel'
 import EventCard from '@/components/EventCard'
 import EventSearch from '@/components/EventSearch'
 import EventFilter from '@/components/EventFilter'
@@ -97,15 +97,32 @@ const GolfEvents = () => {
     )
   }
 
+  // Build hero carousel items from all events
+  const getHeroCarouselItems = () => {
+    const carouselItems = []
+    allEvents.forEach(event => {
+      if (event.hero && event.hero.carousel) {
+        carouselItems.push(...event.hero.carousel)
+      }
+    })
+    // Fallback if no carousel items found
+    if (carouselItems.length === 0) {
+      return [{
+        image: '/images/bg_1.jpg',
+        title: 'Events',
+        subtitle: 'Golf Events & Corporate Gatherings'
+      }]
+    }
+    return carouselItems
+  }
+
   return (
     <>
       {/* Hero Section */}
-      <Hero 
-        title="Events"
-        breadcrumbs={[
-          { name: 'Home', url: '/' },
-          { name: 'Events', url: '/events' }
-        ]}
+      <EventCarousel 
+        items={getHeroCarouselItems()}
+        showControls={allEvents.length > 1}
+        showIndicators={allEvents.length > 1}
       />
 
       {/* Search and Filter Section */}

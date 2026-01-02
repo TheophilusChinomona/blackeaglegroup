@@ -68,6 +68,16 @@ const ClientCard = ({
   }, [prefersReducedMotion])
 
   const logoSrc = logo || image
+
+  // Dynamic font size for long client names
+  // Dynamic font size for long client names
+  const getNameFontSize = (name) => {
+    if (name.length > 35) return "text-sm"
+    if (name.length > 28) return "text-base"
+    if (name.length > 20) return "text-lg"
+    if (featured) return "text-2xl"
+    return "text-xl md:text-2xl"
+  }
   
   // Card content (shared between all variants)
   const cardContent = (
@@ -85,15 +95,15 @@ const ClientCard = ({
       <div 
         className={cn(
           "flex items-center justify-center bg-white border-b border-gray-100",
-          "p-6",
-          featured ? "h-[160px] md:h-[160px]" : "h-[120px]"
+          "shrink-0",
+          featured ? "h-[160px] md:h-[160px]" : "h-[160px]"
         )}
       >
         {logoSrc ? (
           <img 
             src={logoSrc} 
             alt={`${name} logo`}
-            className="max-w-full max-h-full object-contain"
+            className="w-full h-full object-cover"
             loading="lazy"
           />
         ) : (
@@ -106,26 +116,28 @@ const ClientCard = ({
       </div>
       
       {/* Content Area */}
-      <div className="p-6 text-center">
-        <h3 
-          className={cn(
-            "font-serif font-medium text-brand-dark mb-2 leading-tight",
-            featured ? "text-2xl" : "text-xl md:text-2xl"
+      <div className="p-6 text-center flex flex-col h-full justify-between">
+        <div className="flex flex-col flex-grow">
+          <h3 
+            className={cn(
+              "font-serif font-medium text-brand-dark mb-2 leading-tight",
+              getNameFontSize(name)
+            )}
+          >
+            {name}
+          </h3>
+          
+          {(location || industry) && (
+            <p className="text-xs uppercase tracking-wider text-brand-muted font-semibold mb-6">
+              {location && <span>{location}</span>}
+              {location && industry && <span className="mx-1">/</span>}
+              {industry && <span>{industry}</span>}
+            </p>
           )}
-        >
-          {name}
-        </h3>
-        
-        {(location || industry) && (
-          <p className="text-xs uppercase tracking-wider text-brand-muted font-semibold mb-6">
-            {location && <span>{location}</span>}
-            {location && industry && <span className="mx-1">—</span>}
-            {industry && <span>{industry}</span>}
-          </p>
-        )}
+        </div>
         
         <div className={cn(
-          "grid gap-3",
+          "grid gap-3 shrink-0",
           phoneNumber && referenceLink ? "grid-cols-2" : "grid-cols-1"
         )}>
           {phoneNumber && (

@@ -6,21 +6,34 @@ import Hero from '@/components/Hero'
 import ServiceCard from '@/components/ServiceCard'
 import EventSearch from '@/components/EventSearch'
 import ServiceFilter from '@/components/ServiceFilter'
-import { getAllServices, getServicesByCategory, getServiceCategories } from '@/utils/serviceData'
-import { cn } from '@/utils'
+import SectionHeader from '@/components/SectionHeader'
+import EventContactModal from '@/components/EventContactModal'
+import { getAllServices, getServicesByCategory, getServiceCategories, getFeaturedServices } from '@/utils/serviceData'
 
-// Animated Service Card Wrapper Component
-const AnimatedServiceCard = ({ service, index, scrollYProgress, categoryColor }) => {
-  // Staggered delays: 50-100ms between cards (0.05-0.1 scroll progress increments)
-  const delay = 0.1 + (index * 0.05)
-  const cardOpacity = useTransform(scrollYProgress, [delay, delay + 0.3], [0, 1])
-  const cardY = useTransform(scrollYProgress, [delay, delay + 0.3], [30, 0])
-  
+import '@/styles/services.css'
+
+const prefersReducedMotion = typeof window !== 'undefined'
+  ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  : false
+
+const AnimatedServiceCard = ({ service, index, scrollYProgress, categoryColor, categoryLabel }) => {
+  // Use row-based staggering: cards in the same row animate together
+  // Assuming 3 columns on large screens, delay resets per row
+  const rowIndex = Math.floor(index / 3)
+  const delay = Math.min(0.05 + (rowIndex * 0.03), 0.2) // Cap delay at 0.2
+  const cardOpacity = useTransform(
+    scrollYProgress,
+    [delay, delay + 0.15],
+    prefersReducedMotion ? [1, 1] : [0, 1]
+  )
+  const cardY = useTransform(
+    scrollYProgress,
+    [delay, delay + 0.15],
+    prefersReducedMotion ? [0, 0] : [20, 0]
+  )
+
   return (
-    <motion.div 
-      style={{ opacity: cardOpacity, y: cardY }}
-      className="w-full h-full"
-    >
+    <motion.div style={{ opacity: cardOpacity, y: cardY }} className="w-full h-full">
       <ServiceCard
         image={service.image}
         title={service.title}
@@ -28,142 +41,228 @@ const AnimatedServiceCard = ({ service, index, scrollYProgress, categoryColor })
         category={service.category}
         featured={service.featured || false}
         categoryColor={categoryColor}
+        categoryLabel={categoryLabel}
       />
     </motion.div>
   )
 }
 
-// Category Section Component
-const CategorySection = ({ categoryKey, categoryData, services, scrollYProgress, sectionIndex, isExpanded, onToggle }) => {
+const FeaturedServicesSection = ({ services, categories }) => {
   const sectionRef = useRef(null)
-  const contentRef = useRef(null)
   const { scrollYProgress: sectionScrollProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"]
+    offset: ['start end', 'end start']
   })
 
-  // Header animations with staggered delays
-  const subheadingOpacity = useTransform(sectionScrollProgress, [0, 0.3], [0, 1])
-  const subheadingY = useTransform(sectionScrollProgress, [0, 0.3], [20, 0])
-  
-  const headingOpacity = useTransform(sectionScrollProgress, [0.05, 0.35], [0, 1])
-  const headingY = useTransform(sectionScrollProgress, [0.05, 0.35], [20, 0])
-  
-  const descriptionOpacity = useTransform(sectionScrollProgress, [0.1, 0.4], [0, 1])
-  const descriptionY = useTransform(sectionScrollProgress, [0.1, 0.4], [20, 0])
+  const headerOpacity = useTransform(
+    sectionScrollProgress,
+    [0, 0.3],
+    prefersReducedMotion ? [1, 1] : [0, 1]
+  )
+  const headerY = useTransform(
+    sectionScrollProgress,
+    [0, 0.3],
+    prefersReducedMotion ? [0, 0] : [20, 0]
+  )
 
-  // Category color
-  const categoryColor = categoryData?.color || '#59B200'
-
-  // Sort services: featured first, then by order
-  const sortedServices = [...services].sort((a, b) => {
-    if (a.featured && !b.featured) return -1
-    if (!a.featured && b.featured) return 1
-    return (a.order || 999) - (b.order || 999)
-  })
+  if (services.length === 0) return null
 
   return (
-    <section 
-      ref={sectionRef}
-      className={cn(
-        "ftco-section services-category-section",
-        sectionIndex > 0 && "pt-0"
-      )}
-      style={{
-        position: 'relative'
-      }}
-    >
+    <section ref={sectionRef} className="services-featured-section">
       <Container>
-        {/* Category Header - Clickable to Toggle */}
-        <Row className="justify-content-center mb-4">
-          <Col md={10} className="text-center">
-            <button
-              onClick={onToggle}
-              className="services-category-toggle"
-              style={{ 
-                background: 'none',
-                border: 'none',
-                padding: 0,
-                cursor: 'pointer',
-                width: '100%',
-                textAlign: 'center'
-              }}
-              aria-expanded={isExpanded}
-              aria-controls={`category-${categoryKey}-content`}
-            >
-              <motion.span 
-                className="subheading services-category-subheading"
-                style={{ 
-                  opacity: subheadingOpacity, 
-                  y: subheadingY,
-                  color: categoryColor
-                }}
-              >
-                {categoryData?.name || categoryKey}
-                <span 
-                  className="services-category-icon"
-                  style={{
-                    marginLeft: '1rem',
-                    display: 'inline-block',
-                    transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
-                    transition: 'transform 0.3s ease'
-                  }}
-                  aria-hidden="true"
-                >
-                  ▼
-                </span>
-              </motion.span>
-              {categoryData?.description && (
-                <motion.p
-                  className="services-category-description mt-3"
-                  style={{ 
-                    opacity: descriptionOpacity, 
-                    y: descriptionY 
-                  }}
-                >
-                  {categoryData.description}
-                </motion.p>
-              )}
-            </button>
-          </Col>
-        </Row>
-
-        {/* Services Grid - Dynamic Layout - Collapsible */}
-        <motion.div
-          ref={contentRef}
-          id={`category-${categoryKey}-content`}
-          initial={false}
-          animate={{
-            height: isExpanded ? 'auto' : 0,
-            opacity: isExpanded ? 1 : 0
-          }}
-          transition={{
-            duration: 0.3,
-            ease: [0.4, 0, 0.2, 1]
-          }}
-          style={{
-            overflow: 'hidden'
-          }}
-        >
-          <Row className="d-flex">
-            {sortedServices.map((service, index) => (
-              <Col 
-                key={service.id} 
-                xs={12} 
-                sm={6} 
-                md={service.featured ? 6 : 4}
-                lg={service.featured ? 6 : 4}
-                className="d-flex mb-4"
-              >
+        <motion.div style={{ opacity: headerOpacity, y: headerY }}>
+          <SectionHeader
+            label="Signature Services"
+            title="Our Most Requested Solutions"
+            description="A curated snapshot of the services clients rely on most for security, property, and business continuity."
+            align="center"
+          />
+        </motion.div>
+        <Row className="d-flex">
+          {services.map((service, index) => {
+            const categoryData = categories[service.category] || {}
+            return (
+              <Col key={service.id} xs={12} sm={6} lg={4} className="d-flex mb-4">
                 <AnimatedServiceCard
                   service={service}
                   index={index}
                   scrollYProgress={sectionScrollProgress}
-                  categoryColor={categoryColor}
+                  categoryColor={categoryData.color}
+                  categoryLabel={categoryData.name}
                 />
               </Col>
-            ))}
-          </Row>
+            )
+          })}
+        </Row>
+      </Container>
+    </section>
+  )
+}
+
+const ServicesHighlightsSection = ({ stats }) => {
+  const sectionRef = useRef(null)
+  const { scrollYProgress: sectionScrollProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start']
+  })
+
+  const headerOpacity = useTransform(
+    sectionScrollProgress,
+    [0, 0.3],
+    prefersReducedMotion ? [1, 1] : [0, 1]
+  )
+  const headerY = useTransform(
+    sectionScrollProgress,
+    [0, 0.3],
+    prefersReducedMotion ? [0, 0] : [20, 0]
+  )
+
+  return (
+    <section ref={sectionRef} className="services-highlights-section">
+      <Container>
+        <motion.div style={{ opacity: headerOpacity, y: headerY }}>
+          <SectionHeader
+            label="Services Overview"
+            title="Breadth With Precision"
+            description="We deliver specialized support across security, property, and business operations with a focus on consistency and accountability."
+            align="center"
+          />
+        </motion.div>
+        <Row className="justify-content-center">
+          {stats.map((stat) => (
+            <Col key={stat.label} xs={12} sm={6} lg={4} className="mb-4 d-flex">
+              <div className="services-highlight-card">
+                <p className="services-highlight-value">{stat.value}</p>
+                <p className="services-highlight-label">{stat.label}</p>
+                <p className="services-highlight-detail">{stat.detail}</p>
+              </div>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </section>
+  )
+}
+
+const ServicesGridSection = ({ services, categories }) => {
+  const sectionRef = useRef(null)
+  const { scrollYProgress: sectionScrollProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start']
+  })
+
+  const headerOpacity = useTransform(
+    sectionScrollProgress,
+    [0, 0.3],
+    prefersReducedMotion ? [1, 1] : [0, 1]
+  )
+  const headerY = useTransform(
+    sectionScrollProgress,
+    [0, 0.3],
+    prefersReducedMotion ? [0, 0] : [20, 0]
+  )
+
+  if (services.length === 0) return null
+
+  return (
+    <section ref={sectionRef} className="services-grid-section">
+      <Container>
+        <motion.div style={{ opacity: headerOpacity, y: headerY }}>
+          <SectionHeader
+            label="Full Service List"
+            title="Every Capability, In One Place"
+            description="Explore the complete catalogue and filter by category to zero in on the support your team needs."
+            align="center"
+          />
+        </motion.div>
+        <Row className="d-flex">
+          {services.map((service, index) => {
+            const categoryData = categories[service.category] || {}
+            return (
+              <Col key={service.id} xs={12} sm={6} lg={4} className="d-flex mb-4">
+                <AnimatedServiceCard
+                  service={service}
+                  index={index}
+                  scrollYProgress={sectionScrollProgress}
+                  categoryColor={categoryData.color}
+                  categoryLabel={categoryData.name}
+                />
+              </Col>
+            )
+          })}
+        </Row>
+      </Container>
+    </section>
+  )
+}
+
+const ServicesTestimonialSection = () => {
+  const sectionRef = useRef(null)
+  const { scrollYProgress: sectionScrollProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start']
+  })
+
+  const contentOpacity = useTransform(
+    sectionScrollProgress,
+    [0.1, 0.4],
+    prefersReducedMotion ? [1, 1] : [0, 1]
+  )
+  const contentY = useTransform(
+    sectionScrollProgress,
+    [0.1, 0.4],
+    prefersReducedMotion ? [0, 0] : [30, 0]
+  )
+
+  return (
+    <section ref={sectionRef} className="services-testimonial-section">
+      <Container>
+        <motion.div className="services-testimonial-content" style={{ opacity: contentOpacity, y: contentY }}>
+          <span className="services-testimonial-quote">"</span>
+          <p className="services-testimonial-text">
+            Black Eagle Group has been the anchor for our facility operations.
+            Their teams stay proactive, disciplined, and easy to collaborate with.
+          </p>
+          <div className="services-testimonial-attribution">
+            <p className="services-testimonial-author">David M., Operations Director</p>
+            <p className="services-testimonial-company">Metropolitan Assets</p>
+          </div>
+        </motion.div>
+      </Container>
+    </section>
+  )
+}
+
+const ServicesCTASection = ({ onOpenModal }) => {
+  const sectionRef = useRef(null)
+  const { scrollYProgress: sectionScrollProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start']
+  })
+
+  const contentOpacity = useTransform(
+    sectionScrollProgress,
+    [0.1, 0.4],
+    prefersReducedMotion ? [1, 1] : [0, 1]
+  )
+  const contentY = useTransform(
+    sectionScrollProgress,
+    [0.1, 0.4],
+    prefersReducedMotion ? [0, 0] : [30, 0]
+  )
+
+  return (
+    <section ref={sectionRef} className="services-cta-section">
+      <Container>
+        <motion.div style={{ opacity: contentOpacity, y: contentY }}>
+          <h2>Need a tailored services plan?</h2>
+          <p>
+            Share your requirements and we will assemble the right service mix
+            for your teams, facilities, and events.
+          </p>
+          <button type="button" className="btn-gold" onClick={onOpenModal}>
+            Talk to Our Team
+          </button>
         </motion.div>
       </Container>
     </section>
@@ -172,53 +271,37 @@ const CategorySection = ({ categoryKey, categoryData, services, scrollYProgress,
 
 const Services = () => {
   const [services, setServices] = useState([])
+  const [featuredServices, setFeaturedServices] = useState([])
   const [categories, setCategories] = useState({})
   const [loading, setLoading] = useState(true)
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false)
   const [servicesByCategory, setServicesByCategory] = useState({
     security: [],
     property: [],
     business: []
   })
-  
-  // State for collapsible categories - all expanded by default
-  const [expandedCategories, setExpandedCategories] = useState({
-    security: true,
-    property: true,
-    business: true
-  })
-  
-  // State for filtering
+
   const [selectedCategories, setSelectedCategories] = useState({
     security: true,
     property: true,
     business: true
   })
   const [searchQuery, setSearchQuery] = useState('')
-  
-  // Toggle category expansion
-  const toggleCategory = (categoryKey) => {
-    setExpandedCategories(prev => ({
-      ...prev,
-      [categoryKey]: !prev[categoryKey]
-    }))
-  }
-  
-  // Toggle category filter
+
   const toggleCategoryFilter = (categoryKey) => {
     setSelectedCategories(prev => ({
       ...prev,
       [categoryKey]: !prev[categoryKey]
     }))
   }
-  
-  // Filter services based on selected categories and search query
+
   const getFilteredServicesByCategory = () => {
     const filtered = {
       security: [],
       property: [],
       business: []
     }
-    
+
     Object.keys(servicesByCategory).forEach(categoryKey => {
       if (selectedCategories[categoryKey]) {
         filtered[categoryKey] = servicesByCategory[categoryKey].filter(service => {
@@ -231,26 +314,26 @@ const Services = () => {
         })
       }
     })
-    
+
     return filtered
   }
-  
+
   const filteredServicesByCategory = getFilteredServicesByCategory()
 
-  // Load services data
   useEffect(() => {
     const loadData = async () => {
       try {
         setLoading(true)
-        const [allServices, categoriesData] = await Promise.all([
+        const [allServices, categoriesData, featured] = await Promise.all([
           getAllServices(),
-          getServiceCategories()
+          getServiceCategories(),
+          getFeaturedServices()
         ])
 
         setServices(allServices)
         setCategories(categoriesData)
+        setFeaturedServices(featured)
 
-        // Group services by category
         const securityServices = await getServicesByCategory('security')
         const propertyServices = await getServicesByCategory('property')
         const businessServices = await getServicesByCategory('business')
@@ -270,12 +353,34 @@ const Services = () => {
     loadData()
   }, [])
 
-  // Main page scroll progress for overall animations
-  const pageRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: pageRef,
-    offset: ["start end", "end start"]
-  })
+  const filteredServices = ['security', 'property', 'business'].flatMap((categoryKey) => (
+    filteredServicesByCategory[categoryKey] || []
+  ))
+  const hasActiveFilters = searchQuery.trim() || Object.values(selectedCategories).some(value => !value)
+  const showFeaturedSection = !hasActiveFilters
+  const featuredServicesVisible = featuredServices.filter(service => (
+    filteredServicesByCategory[service.category]?.some((item) => item.id === service.id)
+  ))
+  const nonFeaturedServices = filteredServices.filter(service => !service.featured)
+  const gridServices = showFeaturedSection ? nonFeaturedServices : filteredServices
+
+  const highlightStats = [
+    {
+      label: 'Total Services',
+      value: services.length || 0,
+      detail: 'Across security, property, and business delivery.'
+    },
+    {
+      label: 'Service Categories',
+      value: Object.keys(categories).length || 0,
+      detail: 'Focused teams to match every operational need.'
+    },
+    {
+      label: 'Featured Solutions',
+      value: featuredServices.length || 0,
+      detail: 'High-demand offerings trusted by clients.'
+    }
+  ]
 
   return (
     <>
@@ -289,44 +394,38 @@ const Services = () => {
           { name: 'Services', url: '/services' }
         ]}
       />
-      
-      {/* Hero Section */}
-      <Hero 
+
+      <Hero
         title="What We Do"
+        subtitle="Integrated security, property, and business services built for reliability, compliance, and client confidence."
         breadcrumbs={[
           { name: 'Home', url: '/' },
           { name: 'Services', url: '/services' }
         ]}
       />
 
-      {/* Search and Filter Section */}
-      <section className="ftco-section services-search-section">
-        <Container>
-          <Row className="justify-content-center mb-5">
-            <Col md={12} lg={10}>
-              <div className="d-flex flex-column flex-md-row gap-3 align-items-start align-items-md-center">
-                <div className="flex-grow-1" style={{ minWidth: '200px', maxWidth: '300px' }}>
-                  <EventSearch
-                    value={searchQuery}
-                    onChange={setSearchQuery}
-                    placeholder="Search services..."
-                  />
-                </div>
-                <div className="flex-shrink-0">
-                  <ServiceFilter
-                    selectedCategories={selectedCategories}
-                    onToggleCategory={toggleCategoryFilter}
-                    categories={categories}
-                  />
-                </div>
+      <div className="services-page">
+        <section className="services-search-section">
+          <Container>
+            <div className="services-search-controls">
+              <div style={{ minWidth: '200px', maxWidth: '320px', flex: '1' }}>
+                <EventSearch
+                  value={searchQuery}
+                  onChange={setSearchQuery}
+                  placeholder="Search services..."
+                />
               </div>
-            </Col>
-          </Row>
-        </Container>
-      </section>
+              <div>
+                <ServiceFilter
+                  selectedCategories={selectedCategories}
+                  onToggleCategory={toggleCategoryFilter}
+                  categories={categories}
+                />
+              </div>
+            </div>
+          </Container>
+        </section>
 
-      {/* Services Content */}
-      <div ref={pageRef}>
         {loading ? (
           <section className="ftco-section">
             <Container>
@@ -339,54 +438,28 @@ const Services = () => {
           </section>
         ) : (
           <>
-            {/* Security Services Section */}
-            {filteredServicesByCategory.security.length > 0 && (
-              <CategorySection
-                categoryKey="security"
-                categoryData={categories.security}
-                services={filteredServicesByCategory.security}
-                scrollYProgress={scrollYProgress}
-                sectionIndex={0}
-                isExpanded={expandedCategories.security}
-                onToggle={() => toggleCategory('security')}
+            {showFeaturedSection && (
+              <FeaturedServicesSection
+                services={featuredServicesVisible}
+                categories={categories}
               />
             )}
 
-            {/* Property Services Section */}
-            {filteredServicesByCategory.property.length > 0 && (
-              <CategorySection
-                categoryKey="property"
-                categoryData={categories.property}
-                services={filteredServicesByCategory.property}
-                scrollYProgress={scrollYProgress}
-                sectionIndex={1}
-                isExpanded={expandedCategories.property}
-                onToggle={() => toggleCategory('property')}
-              />
-            )}
+            <ServicesHighlightsSection stats={highlightStats} />
 
-            {/* Business Services Section */}
-            {filteredServicesByCategory.business.length > 0 && (
-              <CategorySection
-                categoryKey="business"
-                categoryData={categories.business}
-                services={filteredServicesByCategory.business}
-                scrollYProgress={scrollYProgress}
-                sectionIndex={2}
-                isExpanded={expandedCategories.business}
-                onToggle={() => toggleCategory('business')}
-              />
-            )}
-            
-            {/* No Results Message */}
+            <ServicesGridSection
+              services={gridServices}
+              categories={categories}
+            />
+
             {Object.values(filteredServicesByCategory).every(arr => arr.length === 0) && (
-              <section className="ftco-section">
+              <section className="services-no-results-section">
                 <Container>
                   <Row className="justify-content-center">
                     <Col md={8} className="text-center">
-                      <div className="py-5">
+                      <div className="services-no-results">
                         <h3>No services found</h3>
-                        <p className="text-muted">Try adjusting your search or filter criteria.</p>
+                        <p>Try adjusting your search or filter criteria.</p>
                         {(searchQuery.trim() || Object.values(selectedCategories).some(v => !v)) && (
                           <button
                             onClick={() => {
@@ -408,9 +481,20 @@ const Services = () => {
                 </Container>
               </section>
             )}
+
+            {showFeaturedSection && <ServicesTestimonialSection />}
+
+            <ServicesCTASection onOpenModal={() => setIsContactModalOpen(true)} />
           </>
         )}
       </div>
+
+      <EventContactModal
+        open={isContactModalOpen}
+        onOpenChange={setIsContactModalOpen}
+        title="Talk to Our Team"
+        description="Tell us about your service needs and we will reach out with a tailored plan."
+      />
     </>
   )
 }

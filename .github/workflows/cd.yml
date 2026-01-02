@@ -39,4 +39,6 @@ jobs:
           local-dir: ./BlackEagleGroup.React/dist/
           # Remote directory on the server
           server-dir: ./public_html/dev/
-          dangerous-clean-slate: false 
+          dangerous-clean-slate: false
+          # Timeout in milliseconds (15 minutes)
+          timeout: 900000
